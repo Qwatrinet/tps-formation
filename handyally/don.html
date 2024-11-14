@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faites un don!</title>
+    <link rel="stylesheet" href="don.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <a id="evitement" class="skip-link" href="#main">Aller au contenu</a>
+            <img src="./Pictures/a11yNow.png" alt="logo">
+        </div>
+        <nav>
+            <menu>
+                <li><a href="./accueil.html">Accueil</a></li>
+                <li><a href="./a11y.html">A11y</a></li>
+                <li><a href="./Handicap.html">Handicaps</a></li>
+                <li><a href="./don.html">Faites un don</a></li>
+                <li>Equipe</li>
+                <li><button>Paramètres accessibilité</button>
+                    <dialog id="parametres">Paramètres d'accessibilité
+                        
+                    </dialog>
+    
+                </li>
+            </menu>
+            <form role="search">
+                <input type="search" name="recherche" id="recherche" placeholder="Rechercher">
+                <button type="button" name="valider-recherche" id="valider-recherche"><label
+                        for="recherche">Rechercher</label></button>
+            </form>
+        </nav>
+    </header>
+    <main id="main">
+        <h1>Nous sommes bénévoles, faites un don !</h1>
+        <img src="./Pictures/directrice.png" alt="">
+        <form action="./don.html" method="get">
+            <fieldset>
+                <legend>Informations personnelles</legend>
+                <label for="civilite">Civilité</label>
+                <select name="genre" id="civilite">
+                    <option value="0">Monsieur</option>
+                    <option value="1">Madame</option>
+                    <option value="2">Autre</option>
+                </select>
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" required>
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" required>
+                <label for="age">Age</label>
+                <input type="number" id="age" required>
+                <label for="mail">Courriel</label>
+                <input type="email" id="mail" required>
+                <p>Veuillez fournir une adresse électronique valide</p>
+            </fieldset>
+            <fieldset>
+                <legend>Adresse</legend>
+                <label for="numero">Numéro</label>
+                <input type="number" id="numero" required>
+                <label for="rue">Nom de la rue</label>
+                <input type="text" id="rue" required>
+                <label for="code-postal">Code postal</label>
+                <input type="text" id="code-postal" required autocomplete="postal-code">
+                <label for="ville">Ville</label>
+                <input type="text" id="ville" required>
+            </fieldset>
+            <fieldset>
+                <legend>Cochez la ou les cases correspondant à vos souhaits</legend>
+                <label for="newsletter">Recevoir la newsletter</label>
+                <input type="checkbox" id="newsletter">
+                <label for="benevole">Devenir bénévole</label>
+                <input type="checkbox" id="benevole">
+            </fieldset>
+            <fieldset>
+                <legend>Montant du don</legend>
+                <label for="montant">Montant</label>
+                <select id="montant">
+                    <option value="10">10 euros</option>
+                    <option value="30">30 euros</option>
+                    <option value="50">50 euros</option>
+                    <option value="100">100 euros</option>
+                    <option value="200">200 euros</option>
+                    <option value="500">500 euros</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Informations de paiement</legend>
+                <fieldset id="infopaiement">
+                    <legend>Choix de la carte</legend>
+                    <input type="radio" name="typecarte" id="master" value="master">
+                    <label for="master">Master Card</label>
+                    <input type="radio" name="typecarte" id="cb" value="cb">
+                    <label for="cb">CB</label>
+                    <input type="radio" name="typecarte" id="visa" value="visa">
+                    <label for="visa">Visa</label>
+                </fieldset>
+                <label for="numero-carte">Numéro de carte</label>
+                <input type="number" id="numero-carte" required>
+                <label for="expire">Date d'expiration</label>
+                <input type="texte" placeholder="MM/AA"  id="expire" required>
+                <label for="code">Code secret</label>
+                <input type="number" id="code" required>
+            </fieldset>
+            <button type=submit id="valid">Valider le don</button>
+        </form>
+    </main>
+    <footer>
+        <p>© 2024 HandyA11y. Tous droits réservés</p>
+    </footer>
+</body>
+
+</html>

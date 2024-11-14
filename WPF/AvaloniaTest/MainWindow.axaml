@@ -1,0 +1,18 @@
+<suki:SukiWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:suki="using:SukiUI.Controls"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaTest.MainWindow"
+        Title="AvaloniaTest">
+	<suki:SukiWindow.Styles>
+		<Style Selector="ToggleButton:checked" x:SetterTargetType="{x:Type ToggleButton}">
+			<Setter	Property="Cursor" Value="Cross" />
+		</Style>
+	</suki:SukiWindow.Styles>
+	<Grid RowDefinitions="*,*">
+		<ToggleButton Name="TgbBob">Click me!</ToggleButton>
+		<ToggleButton Grid.Row="1">Click me!!</ToggleButton>
+	</Grid>
+</suki:SukiWindow>

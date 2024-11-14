@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+:root{
+    --size:2rem;
+}
+
+body{
+    display: grid;
+    place-content: center;
+    min-height: 100vh;
+}
+div{
+    height: var(--size);
+    width:var(--size);
+    grid-row: span 1;
+    grid-column: span 1;
+}
+
+#coeur:hover{
+    transform: scale(2,2) rotate(1turn);
+    
+}
+#coeur {
+    place-content: center;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    transition: all 5s cubic-bezier(1, -1, 1, -1);
+}
+
+.w{
+    background-color: white;
+
+}
+
+.b{
+    background-color: black;
+    
+}
+.r{
+    background-color: red;
+
+}

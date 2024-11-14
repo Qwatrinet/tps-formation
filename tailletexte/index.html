@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texte Bob</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="main.js" type="module"></script>
+</head>
+<body>
+    <header>
+        <h1>Changer la taille du texte</h1>
+    </header>
+    <main id="app">
+        <div>
+            <button @click="agrandir">Augmenter la taille du texte</button>
+            <button @click="diminuer">Diminuer la taille du texte</button>
+            saisie manuelle: 
+            <input type="number" v-model="taille">
+            <p>px</p>
+        </div>
+        <p :style="{'font-size': realTextSize +'px'}">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat obcaecati eius culpa, quae soluta quidem, unde suscipit optio blanditiis consequuntur quibusdam excepturi maxime dolore velit placeat illo corrupti, aut error.</p>
+    </main>
+</body>
+</html>

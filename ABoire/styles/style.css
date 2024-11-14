@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+}
+
+:root{
+    --color-bg-primary:white;
+    --color-bg-secondary:#AED7E5;
+    --color-title:#820006;
+    --color-text:#010001;
+}
+html {
+    font-size: 62.5%;
+    /*1rem=10px*/
+}
+
+body {
+    font-size: 1.6rem;
+    background-color: --color-bg-primary;
+}
+
+
+header{ 
+    display: flex;
+    justify-content: space-between;
+}
+header,main>div>h2{
+    color: var(--color-title);
+    background-color: var(--color-bg-secondary);
+}
+
+h3{
+    color: var(--color-title);
+}
+main{
+    display :grid;
+    grid-template-columns: 2fr 1fr;
+    gap:0.1rem
+}
+
+
+#selectBoisson{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1rem; 
+}
+
+#selectBoisson>div:hover{
+    background-color: var(--color-text);
+    color: var(--color-bg-secondary);
+    h3 {
+        color: var(--color-bg-secondary);
+    }
+    cursor:pointer;
+}
+
+#selectBoisson>div>button:hover{
+    cursor: pointer;
+    background-color: var(--color-title);
+    color: var(--color-bg-primary);
+}
+
+
+main>div>h2{
+    margin-top:.4rem;
+    margin-bottom:1rem;
+    padding:1rem
+}
+#selectBoisson div {
+    background-color: var(--color-bg-secondary);
+    text-align: center;
+    border:1px,solid,var(--color-title);
+    
+}
+
+button{
+    margin-bottom: .5rem;
+    background-color: var(--color-bg-secondary);
+    border: 1px,solid,var(--color-title);
+    width:95%;
+    padding: .5rem;
+    color:var(--color-title)
+}
+
+.thune::after{
+    content: "€";
+    margin-left:.4rem
+}
+
+main>div>p{
+    text-align: center;
+}
+
+#selection{
+    background-color: var(--color-bg-secondary);
+    margin: 1rem;
+}
+#terminalBancaire{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    color: var(--color-title);
+
+    *:nth-child(even) {
+        text-align: end;
+    }
+    p{
+        margin:.5rem
+    }
+}
+
+#annuler{
+    text-align: center;
+}
+.piece{
+    border-radius: 50%;
+    height:7rem;
+    width:7rem;
+    color: var(--color-text);
+}
+
+.piece:hover{
+    cursor: pointer;
+    background-color: var(--color-text);
+    color: var(--color-bg-primary);
+}
+
+#boutonConteneur{
+    display:flex;
+    flex-wrap: wrap;
+    place-content: space-evenly;
+    gap:1rem;
+}
+
+table {
+    border-spacing: 0;
+    background-color: var(--color-bg-secondary);
+    td, th{
+        border: 1px solid var(--color-title);
+        padding:0.3rem
+    }
+}
+
+#paie{
+    font-size: 2.5rem;
+    background-color: var(--color-bg-secondary);
+    padding: 1rem;
+}
+footer{
+    color:var(--color-title)
+}
+
+tfoot{
+    color:var(--color-text)
+}
+
+footer h2{
+    background-color: var(--color-bg-secondary);
+}
+
+#annuler button:hover{
+    color:var(--color-bg-primary);
+    background-color: var(--color-title);
+}

@@ -1,0 +1,172 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    /*1rem=10px*/
+}
+
+body {
+    font-size: 1.6rem;
+    padding: 1rem;
+    background-image: url("./images/truiteback.jfif");
+    background-size: contain
+
+}
+
+p{
+    margin:0;
+}
+header{
+    color:white;
+    text-align: center;
+}
+header button{
+    background-color: transparent;
+    border: none
+}
+#fleche{
+    margin-top:5rem;
+    aspect-ratio: 1/1;
+    width:4rem;
+    margin-bottom: 7rem;
+}
+
+main{
+    background-color: rgba(255, 255, 255, .3);
+    margin-left: 10%;
+    margin-right: 10%;
+    
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+}
+menu{
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+menu img{
+    margin-right:4rem;
+    margin-top:1rem;
+}
+
+li{
+    display: inline-block;
+    padding-top:1.6rem;
+    padding-bottom: 1.6rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    color: white;
+}
+
+.active {
+    background-color: rgba(255, 255, 255, .8);
+    color:black
+}
+
+.logo{
+    width: 3rem;
+    aspect-ratio: 1/1;
+}
+
+article{    
+    text-align: center;
+    background-color: white;
+}
+
+.date {
+    padding-top: 5rem;
+    
+}
+
+article h2 {
+    padding-left: 18%;
+    padding-right: 18%;
+}
+#mainarticle h2{
+    font-size: 300%;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+#maintext{
+    padding-left: 25%;
+    padding-right: 25%;
+    margin-bottom: 3rem;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+article{   
+    padding-bottom: 5rem;
+    width:50%;
+    
+}
+#mainarticle{
+    width:100%;
+    border-bottom: 1px solid grey;
+}
+article img{
+    width:85%;
+    margin-bottom: 3rem;
+}
+#mainarticle img{ 
+    width: 95%;
+}
+
+#droiteart{
+    border-right: 1px solid grey;
+}
+
+
+footer{
+    margin-top:5rem;
+    background-color: rgb(255, 255, 255);
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-left:3rem;
+    display:flex;
+}
+form{
+    width:50%;
+    border-right: 1px solid grey;
+    display:flex;
+    flex-direction: column;
+    padding-right: 3rem;
+    padding-top:4rem;
+    padding-bottom: 3rem;
+}
+
+form *{
+    margin-bottom: 1rem;
+}
+textarea{
+    margin-bottom: 3rem;
+}
+
+#submit {
+    min-width:20rem;
+    width:50%;
+}
+
+footer>div>div{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    padding:4rem ;
+}
+.botmargin {
+    border-bottom: 1px solid grey;
+}
+.contact{
+    color:grey;
+}
+footer img{
+    margin-right:2rem;
+}

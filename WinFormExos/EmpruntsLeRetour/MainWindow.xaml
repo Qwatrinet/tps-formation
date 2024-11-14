@@ -1,0 +1,79 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmpruntsLeRetour"    
+        xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="EmpruntsLeRetour.MainWindow"
+        mc:Ignorable="d"
+        Title="Emprunts" Height="450" Width="800">
+    <Window.Resources>
+        <local:TauxConverter x:Key="TauxConverter"/>
+        <System:Int32 x:Key="7">7</System:Int32>
+        <System:Int32 x:Key="8">8</System:Int32>
+        <System:Int32 x:Key="9">9</System:Int32>
+        <System:Int32 x:Key="1">1</System:Int32>
+        <System:Int32 x:Key="2">2</System:Int32>
+        <System:Int32 x:Key="3">3</System:Int32>
+        <System:Int32 x:Key="6">6</System:Int32>
+        <System:Int32 x:Key="12">12</System:Int32>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="16*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="labelNom"  Target="textBoxNom" Content="Nom" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center"/>
+        <Label x:Name="labelCapital" Target="textBoxCapital" Content="Capital Emprunté" HorizontalAlignment="Left" Grid.Row="1" Margin="50,0,0,0" VerticalAlignment="Center"/>
+        <Label x:Name="labelDuree" Target="textBlockDuree"  HorizontalAlignment="Left" Grid.Row="2" Margin="50,0,0,0" VerticalAlignment="Center" Width="110" Height="52">
+            <AccessText TextWrapping="WrapWithOverflow" Text="Durée en mois du remboursement"/>
+        </Label>
+        <TextBox Name="textBoxNom" Style="{StaticResource OnErrorStyle}" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" VerticalAlignment="Center" Width="120" TextChanged="textBoxNom_TextChanged"/>
+        <TextBox Name="textBoxCapital" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Style="{StaticResource OnErrorStyle}" Text="{Binding AmountLent, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" VerticalAlignment="Center" Width="120" TextChanged="textBoxCapital_TextChanged"/>
+        <GroupBox x:Name="groupBoxTaux" Grid.Column="3" Grid.RowSpan="3" Header="Taux d'intérêt" Margin="0,23,0,0" Grid.ColumnSpan="2">
+            <Grid x:Name="gridTaux">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="89*"/>
+                    <ColumnDefinition Width="59*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <RadioButton GroupName="Taux" Content="7%" Grid.Row="0"  HorizontalAlignment="Center" Height="23" Grid.ColumnSpan="2" Margin="0,19,0,19" IsChecked="{Binding Interests, Converter={StaticResource TauxConverter}, ConverterParameter={StaticResource 7 }}"/>
+                <RadioButton GroupName="Taux" Content="8%" Grid.Row="1"  HorizontalAlignment="Center" Height="23" Grid.ColumnSpan="2" Margin="0,19,0,19" IsChecked="{Binding Interests, Converter={StaticResource TauxConverter}, ConverterParameter={StaticResource 8 }}"/>
+                <RadioButton GroupName="Taux" Content="9%" Grid.Row="2"  HorizontalAlignment="Center" Height="23" Grid.ColumnSpan="2" Margin="0,19,0,19" IsChecked="{Binding Interests, Converter={StaticResource TauxConverter}, ConverterParameter={StaticResource 9 }}"/>
+            </Grid>
+
+        </GroupBox>
+        <Slider x:Name="sliderDuree" Value="{Binding Duration}" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True" TickFrequency="{Binding PeriodBetweenPayments}" Minimum="{Binding PeriodBetweenPayments}" Maximum="180" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="80,28,0,0" Grid.Row="2" VerticalAlignment="Top" Width="213"/>
+        <TextBlock x:Name="textBlockDuree" Grid.Column="1" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Duration}" VerticalAlignment="Center"/>
+        <Button x:Name="buttonOK" Grid.Column="5" Content="Valider" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0" Click="buttonOK_Click"/>
+        <Button x:Name="buttonEffacer" Grid.Column="5" Content="Annuler" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,72,0,0" Grid.RowSpan="2"/>
+        <ListBox Name="listPeriod" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="50,72,50,30">
+            <ListBoxItem IsSelected="{Binding PeriodBetweenPayments, Converter={StaticResource TauxConverter}, ConverterParameter='1'}">Mensuelle</ListBoxItem>
+            <ListBoxItem IsSelected="{Binding PeriodBetweenPayments, Converter={StaticResource TauxConverter}, ConverterParameter='2'}">Bimestrielle</ListBoxItem>
+            <ListBoxItem IsSelected="{Binding PeriodBetweenPayments, Converter={StaticResource TauxConverter}, ConverterParameter='3'}">Trimestrielle</ListBoxItem>
+            <ListBoxItem IsSelected="{Binding PeriodBetweenPayments, Converter={StaticResource TauxConverter}, ConverterParameter='6'}">Semestrielle</ListBoxItem>
+            <ListBoxItem IsSelected="{Binding PeriodBetweenPayments, Converter={StaticResource TauxConverter}, ConverterParameter='12'}">Annuelle</ListBoxItem>
+        </ListBox>
+        <Label Name="labelPeriod" Target="listPeriod" Content="Périodicité de remboursement" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <TextBlock Grid.Column="4" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="Remboursements" VerticalAlignment="Center" Width="160" FontWeight="Bold" FontSize="16" Margin="30,0,0,0"/>
+        <TextBlock Grid.Column="3" Foreground="Red" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="{Binding NumberPayments}" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="5" Foreground="Red" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Payments, StringFormat=0.00 €}" VerticalAlignment="Center"/>
+
+    </Grid>
+</Window>

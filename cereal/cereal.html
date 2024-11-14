@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Céréales</title>
+    <link rel="stylesheet" href="cereal.css">
+    <script src="cereal.js" async type="module"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Cereals💩</h1>
+        <fieldset>
+            <legend>Rechercher</legend>
+            <input type="search" name="recherche" placeholder="Nom des céréales" id="recherche">
+        </fieldset>
+        <fieldset id="filtre">
+            <legend>Filtrer</legend>
+            <fieldset id="nutriscore">
+                <legend>Nutriscore</legend>
+                <label for="a">A</label>
+                <input type="checkbox" name="a" id="a">
+                <label for="b">B</label>
+                <input type="checkbox" name="b" id="b">
+                <label for="c">C</label>
+                <input type="checkbox" name="c" id="c">
+                <label for="d">D</label>
+                <input type="checkbox" name="d" id="d">
+                <label for="e">E</label>
+                <input type="checkbox" name="e" id="e">
+            </fieldset>
+            <fieldset id="categorie">
+                <legend>Catégorie</legend>
+                <select name="cat" id="cat" value="0">
+                    <option value="0">Tous</option>
+                    <option value="1">Sans sucre</option>
+                    <option value="2">Pauvre en sel</option>
+                    <option value="3">Boost</option>
+                </select>
+            </fieldset>
+        </fieldset>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <h2>ID</h2>
+                    </th>
+                    <th>
+                        <h2>NOM</h2>
+                    </th>
+                    <th>
+                        <h2>CALORIES</h2>
+                    </th>
+                    <th>
+                        <h2>PROTEINES</h2>
+                    </th>
+                    <th>
+                        <h2>SEL</h2>
+                    </th>
+                    <th>
+                        <h2>FIBRES</h2>
+                    </th>
+                    <th>
+                        <h2>GLUCIDES</h2>
+                    </th>
+                    <th>
+                        <h2>SUCRE</h2>
+                    </th>
+                    <th>
+                        <h2>POTASSIUM</h2>
+                    </th>
+                    <th>
+                        <h2>VITAMINES</h2>
+                    </th>
+                    <th>
+                        <h2>EVALUATION</h2>
+                    </th>
+                    <th>
+                        <h2>NS</h2>
+                    </th>
+                    <th>
+                        <h2>DEL</h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </main>
+</body>
+
+</html>

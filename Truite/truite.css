@@ -1,0 +1,188 @@
+@font-face {
+    font-family: bob;
+    src: url(./fonts/goudybookletter1911-webfont.woff2);
+}
+
+@font-face {
+    font-family: samsam;
+    src: url(./fonts/opendyslexic-regular-webfont.woff2)
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: repeating-linear-gradient(-45deg, #FFF 10%, rgb(95, 255, 0) 10.4%);
+    /*fait des lignes*/
+    font-family: bob;
+}
+
+.dyslexie {
+    font-family: samsam !important;
+}
+
+header {
+    width: 99%;
+    margin-left: 3px;
+    background-color: greenyellow;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#poisson {
+    width: 34.3%;
+}
+
+#pecheur {
+    width: 65.7%;
+}
+
+header>menu {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+li {
+    list-style: none;
+}
+
+.sous,
+.sousou {
+    display: none;
+    /*on n'affiche pas le sous menu de base*/
+    position: absolute;
+    /*évite de pousser le reste de la page vers le bas quand on va ouvrir le menu*/
+    z-index: 1000;
+    /*Le sous menu s'affiche au dessus de tout*/
+    background-color: white;
+}
+
+.sousou {
+    left: 100%;
+    top: 0;
+}
+
+.deroulant:hover .sous {
+    display: block;
+    /*on affiche le sous menu si on passe sur un élément du menu*/
+}
+
+.sous li {
+    float: none;
+    width: 100%;
+    /* chaque bloc de sous menu doit prendre tout son espace disponible pour que tout s'aligne*/
+    text-align: left;
+    position: relative;
+}
+
+.deroulant li {
+    border: 1px solid black;
+    border-top: none;
+}
+
+.sous>li:hover .sousou {
+    display: block;
+    /*on affiche le sous menu si on passe sur un élément du menu*/
+}
+
+main {
+    display: flex;
+    margin-left: 3px;
+
+}
+
+article {
+    background-color: rgb(190, 250, 190);
+    width: 75%;
+    text-align: justify;
+}
+
+article h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 5px;
+    font-weight: bolder;
+}
+
+article img {
+    float: left;
+    margin-right: 10px;
+}
+
+article div {
+    margin-left: 20px;
+}
+
+nav {
+    width: 10%;
+    background-color: rgb(32, 65, 32);
+}
+
+aside {
+    width: 14.2%;
+    background-color: rgb(190, 250, 190);
+}
+
+nav menu {
+    background-color: rgb(19, 20, 19);
+    color: rgb(177, 33, 33);
+    padding-left: 20px;
+    padding-top: 20px;
+    height: 40%;
+}
+
+nav li {
+    margin: 5px;
+}
+
+aside menu {
+    background-color: rgb(19, 20, 19);
+    color: rgb(177, 33, 33);
+    margin-left: 10px;
+    padding-top: 20px;
+}
+
+aside li {
+    padding: 5px;
+}
+
+aside div {
+    height: 5%;
+    background-color: rgb(19, 20, 19);
+    margin-left: 10px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: green;
+    margin-left: 3px;
+    width: 98.5%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+footer p {
+    text-align: center;
+    color: #FFF;
+}
+
+#copyright {
+    width: 99%;
+}
+
+.sombre {
+    color: rgb(48, 48, 48)
+}
+
+#checkbox {
+    color: aqua;
+    padding-left: 20px;
+    padding-top: 20px;
+}

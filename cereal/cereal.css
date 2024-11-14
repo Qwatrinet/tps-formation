@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+} */
+
+@font-face {
+    font-family: popcorn;
+    src: url(./PopCornFont.otf);
+}
+
+
+body {
+    background-color: #111;
+    font-family: popcorn;
+    color:white;
+
+}
+
+header {
+    display: flex;
+    padding-top: 20px;
+    gap: 5px;
+    height: 7rem;
+}
+
+h1 {
+    width: 40%;
+    text-align: center;
+    color: yellowgreen;
+
+}
+
+header>fieldset {
+    width: 29.5%;
+    padding: 10px;
+    background-color: #444;
+}
+
+fieldset>fieldset {
+    background-color: #333;
+}
+
+#filtre {
+    display: flex;
+    gap: 30px;
+    padding: 10px;
+}
+
+#categorie {
+    padding: 5px
+}
+
+#nutriscore {
+    padding: 5px;
+}
+
+#recherche {
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 120%;
+    padding-left: 5px;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    text-align: center;
+}
+
+label,
+legend,
+th {
+    color: yellowgreen;
+}
+
+main {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 10px;
+}
+
+thead {
+    background-color: #444
+}
+
+tbody>tr>td:first-child,
+tbody>tr>td:last-child 
+{
+    background-color: #333;
+    color: yellow;
+}
+
+td:nth-child(2), th:nth-child(2) {
+    text-align: left;
+}
+th,td{
+    padding:5px;
+}
+tr>td:last-child,h2{
+    cursor: pointer;
+}
+
+#moyenne td{
+    background-color: #111;
+    padding: top 20px;
+    color:white;
+}

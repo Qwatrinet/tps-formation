@@ -1,0 +1,10 @@
+*{
+    box-sizing: border-box;
+}
+
+:root{
+    --green-head: #0D8A5A;
+    --thead-color:#FFFF04;
+    --tbody-color:#0101FF;
+    --text-white:#FFFFE4;
+}

@@ -1,0 +1,139 @@
+:root {
+    --header-bgcolor: rgb(52, 90, 172);
+    --headertext-color: white;
+    --color-section: rgb(180, 216, 223);
+    --tab-bordercolor: black;
+    --titretab-bgcolor: grey;
+    --recherche-bgcolor: rgb(214, 214, 1);
+    --boutonvalider-bgcolor: green;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    /*1rem=10px*/
+}
+
+body {
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+header {
+    background-color: var(--header-bgcolor);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+header a {
+    color: var(--headertext-color);
+    text-decoration: none;
+    display: block;
+}
+
+header img {
+    padding-left: 3rem;
+    width: 9rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+
+nav>menu {
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    color: var(--headertext-color);
+    gap: 2rem;
+    margin-top: 3.5rem;
+    margin-right:25rem;
+}
+
+
+li {
+    list-style: none;
+}
+
+header form {
+    background-color: var(--header-bgcolor);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: inline;
+}
+
+#recherche {
+    height: 3rem;
+    margin-right: 1rem;
+    margin-top: 2rem;
+    margin-left: 4rem;
+    border: none;
+    color: var(--headertext-color);
+    background-color: transparent;
+}
+
+::placeholder {
+    color: var(--headertext-color);
+}
+
+
+#valider-recherche {
+    height: 3rem;
+    margin-right: 2rem;
+    background-color: var(--recherche-bgcolor);
+    border-radius: 15%;
+
+}
+
+/*fin copier*/
+
+h1{
+    text-align:center
+}
+main img{
+    width:15%;
+    margin-left:42.5%
+}
+
+main label{
+  display:block;
+  margin-top:1rem;
+}
+main fieldset{
+    margin:1rem;
+}
+#infopaiement{
+    display: flex;
+    flex-wrap: wrap;
+}
+#infopaiement label{
+    width:97%
+}
+main form{
+    border:1px solid var(--tab-bordercolor);
+    margin-bottom:1rem;
+    padding-bottom:1rem;
+    width:60%;
+    margin-left:20%;
+    margin-top:2rem;
+}
+main form button{
+    width:98%;
+    height:4rem;
+    margin-left:1%;
+    background-color: var(--boutonvalider-bgcolor);
+    color:var(--headertext-color)
+}

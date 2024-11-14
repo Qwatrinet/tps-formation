@@ -1,0 +1,137 @@
+:root {
+    --header-bgcolor: rgb(52, 90, 172);
+    --headertext-color: white;
+    --color-section: rgb(180, 216, 223);
+    --tab-bordercolor: black;
+    --titretab-bgcolor: grey;
+    --recherche-bgcolor: rgb(214, 214, 1);
+    --boutonvalider-bgcolor: green;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    /*1rem=10px*/
+}
+
+body {
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+header {
+    background-color: var(--header-bgcolor);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+header a {
+    color: var(--headertext-color);
+    text-decoration: none;
+    display: block;
+}
+
+header img {
+    padding-left: 3rem;
+    width: 9rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+
+nav>menu {
+    display: flex;
+    justify-content: center;
+    color: var(--headertext-color);
+    gap: 2rem;
+    margin-top: 3.5rem;
+    margin-right: 25rem;
+}
+
+
+li {
+    list-style: none;
+}
+
+header form {
+    background-color: var(--header-bgcolor);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: inline;
+}
+
+#recherche {
+    height: 3rem;
+    margin-right: 1rem;
+    margin-top: 2rem;
+    margin-left: 4rem;
+    border: none;
+    color: var(--headertext-color);
+    background-color: transparent;
+}
+
+::placeholder {
+    color: var(--headertext-color);
+}
+
+
+#valider-recherche {
+    height: 3rem;
+    margin-right: 2rem;
+    background-color: var(--recherche-bgcolor);
+    border-radius: 15%;
+
+}
+
+/*fin copier*/
+main{
+    display:flex;
+    flex-wrap: wrap;
+}
+h1{
+    width:100%;
+}
+main img{
+    padding-left:1rem;
+    height:50%;
+    width:5%
+}
+article{
+    padding-left:10%;
+    width:92%
+}
+
+section{
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:6rem;
+    margin-top:5rem;
+
+}
+
+section>h1{
+    width:100%;
+    text-align: center;
+    margin-bottom:3rem;
+}
+section>div{
+    width:20%;
+    margin-left:5%;
+}
+section img{
+    width:50%
+}

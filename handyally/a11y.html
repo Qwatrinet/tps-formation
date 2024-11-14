@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonnes pratiques d'accessibilité</title>
+    <link rel="stylesheet" href="ally.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <a id="evitement" class="skip-link" href="#main">Aller au contenu</a>
+            <img src="./Pictures/a11yNow.png" alt="logo">
+        </div>
+        <nav>
+            <menu>
+                <li><a href="./accueil.html">Accueil</a></li>
+                <li><a href="./a11y.html">A11y</a></li>
+                <li><a href="./Handicap.html">Handicaps</a></li>
+                <li><a href="./don.html">Faites un don</a></li>
+                <li>Equipe</li>
+                <li><button>Paramètres accessibilité</button>
+                    <dialog id="parametres">Paramètres d'accessibilité
+                        
+                    </dialog>
+    
+                </li>
+            </menu>
+            <form role="search">
+                <input type="search" name="recherche" id="recherche" placeholder="Rechercher">
+                <button type="button" name="valider-recherche" id="valider-recherche"><label
+                        for="recherche">Rechercher</label></button>
+            </form>
+        </nav>
+    </header>
+    <main id="main">
+        <button>afficher les alternatives texte</button>
+        <h1>Quelques bonnes pratiques d'accessibilité</h1>
+        <img src="./Pictures/ally/decorative-image.jpg" alt="">
+        <p class="description">L'alt est vide donc rien ne doit être écrit</p>
+        <h2>Images décoratives</h2>
+        <p>Utiliser des attributs "alt" vides ou nuls afin d'éviter qu'elles soient lues par les technologies
+            d'assistance.</p>
+        <img src="./Pictures/ally/informative-image.jpg" alt="couverture du livre de Joel Zaffran sur le handicap et l'accessibilité">
+        <p class="description">couverture d'un livre sur le handicap et l'accessibilité</p>
+        <h2>Images informatives</h2>
+        <p>Utiliser des descriptions appropriées dans les attributs "alt" des images informatives. Pas besoin
+            d'attributs title ou d'ARIA ici.</p>
+        <img src="./Pictures/ally/semantique-html.jpg" alt="image de code html avec une résolution trop faible">
+        <p class="description">image de code html avec une résolution trop faible</p>
+        <h2>Balises HTML sémantiques</h2>
+        <p>Utiliser des balises HTML appropriées (telles que &ltheader&gt, &ltnav&gt, &ltmain&gt, &ltsection&gt,
+            &ltarticle&gt, &ltaside&gt, &ltfooter&gt) pour améliorer la structure et la compréhension du contenu par les
+            technologies d'assistance.</p>
+        <h2>Comment réaliser un audit d'accessibilité sur votre site web</h2>
+        <img src="./Pictures/ally/ara.png" alt="">
+        <p><strong>ARA</strong> vous propose une méthodologie pour réaliser 3 types d'audit</p>
+        <p><strong>Rapide</strong> (25 critères du RGAA)</p>
+        <p><strong>Complémentaire</strong> (50 critères du RGAA)</p>
+        <p><strong>Complet</strong> dit de conformité (106 critères du RGAA)</p>
+        <a href="https://ara.numerique.gouv.fr/audits/nouveau">Lien pour effectuer un audit d'un site web</a>
+        <a href="https://ara.numerique.gouv.fr/ressources/outils">Lien vers une liste d'outils pour tester l'accessibilité</a>
+    </main>
+    <footer>
+        <p>© 2024 HandyA11y. Tous droits réservés</p>
+    </footer>
+</body>
+
+</html>

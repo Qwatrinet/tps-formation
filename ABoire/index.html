@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributeur de boissons</title>
+    <link href="/styles/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="/scripts/script.js" type="module"></script>
+</head>
+<body>
+    <header>
+        <h1>Distributeur</h1>
+        <p v-if="distributeur.argentTombe>0" class="thune">Remboursé : {{distributeur.argentTombe}}</p>
+    </header>
+    <main>
+        <div>
+            <h2>Boissons</h2>
+            <div id="selectBoisson">
+                <div v-for="boisson in distributeur.boissons">
+                    <h3>{{boisson.article.nom}}</h3>
+                    <p class="thune">Tarif: {{boisson.article.tarif}}</p>
+                    <p>Stock: {{boisson.stock}}</p>
+                    <button :id="boisson.article.nom" :class="{selected: boisson.article.selection}" @click="selectBoisson(boisson)">{{afficherSelection(boisson)}}</button>
+                </div>
+            </div>
+            
+        </div>
+        <div>
+            <h2>Votre sélection</h2>
+            <p>{{distributeur.selection?.nom}}</p>
+            <div id="selection" v-if="distributeur.selection!=null">
+                <div id="terminalBancaire">
+                    <p>Tarif :</p>
+                    <p class="thune">{{distributeur.selection.tarif}}</p>
+                    <p>Payé :</p>
+                    <p class="thune">{{distributeur.paye}}</p>
+                    <p>Restant dû :</p>
+                    <p class="thune">{{distributeur.restantDu}}</p>
+                    <p>Retour monnaie :</p>
+                    <p class="thune">{{distributeur.retourMonnaie}}</p>
+                </div>
+                <div id="annuler">
+                    <button type="button"  @click="annulerSelection">{{enTrainDePayer}}</button>
+                    <button v-if="distributeur.restantDu==0" @click="recupererBoisson">Récupérer {{distributeur.selection.nom}}</button>
+                </div>
+            </div>
+            <div v-if="distributeur.restantDu>0">
+                <h3 id="paie">Paiement</h3>
+                <div id="boutonConteneur">
+                    <button data-value="0.05" @click="ajouterPiece" class="piece">Pièce de 5cts</button>
+                    <button data-value="0.1" @click="ajouterPiece" class="piece">Pièce de 10cts</button>
+                    <button data-value="0.2" @click="ajouterPiece"class="piece">Pièce de 20cts</button>
+                    <button data-value="0.5" @click="ajouterPiece"class="piece">Pièce de 50cts</button>
+                    <button data-value="1" @click="ajouterPiece"class="piece">Pièce de 1 Euro</button>
+                    <button data-value="2" @click="ajouterPiece"class="piece">Pièce de 2 Euro</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer v-if="distributeur.achats.length>0">
+        <h2>Historique</h2>
+        <table >
+            <thead>
+                <tr>
+                    <th>Date/heure</th>
+                    <th>Produit</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantité</th>
+                    <th>Prix payé</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="achat in distributeur.achats">
+                    <td>{{new Date(achat.date).toLocaleString()}}</td>
+                    <td>{{achat.selection.nom}}</td>
+                    <td>{{achat.selection.tarif}}</td>
+                    <td>1</td>
+                    <td>{{achat.selection.tarif}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Totaux:</td>
+                    <td>{{distributeur.achats.length}} produit{{pluriel}}</td>
+                    <td class="thune">{{prixTotal}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </footer>
+</body>
+</html>

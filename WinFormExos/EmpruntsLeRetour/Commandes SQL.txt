@@ -1,0 +1,19 @@
+Create TABLE Loan(
+	ID int NOT NULL IDENTITY,
+	[Name] nvarchar(30) NOT NULL,
+	AmountLent int NOT NULL,
+	Duration int NOT NULL,
+	PeriodBetweenPayments int NOT NULL,
+	Interests int NOT NULL,
+	CONSTRAINT PK_Loan PRIMARY KEY(ID)
+	)
+GO
+INSERT INTO Loan([Name],AmountLent,Duration,PeriodBetweenPayments,Interests) VALUES ('Bob',10000,100,3,8)
+GO
+
+
+Générer le modèle
+
+se mettre dans le répertoire où on veut générer le dossier
+
+Scaffold-DbContext "Server=.\SQLEXPRESS;DataBase=LoanDB;Integrated Security=True;Trust Server Certificate=True" Microsoft.EntityFrameworkCore.SQlServer -OutputDir Models

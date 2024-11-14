@@ -1,0 +1,897 @@
+ALTER TABLE emp
+ADD CONSTRAINT FK_emp_dept
+FOREIGN KEY (deptno) REFERENCES dept(deptno);
+
+insert into DEPT
+VALUES (10 ,"ACCOUNTING" ,"NEW YORK"),
+(20, "RESEARCH", "DALLAS"),
+(30, "SALES", "CHICAGO"),
+(40, "OPERATIONS", "BOSTON");
+
+tous les employés
+SELECT ename, job,empno,sal FROM `EMP`
+
+departement 10:
+SELECT ename, job,empno,sal FROM `EMP` where deptno=10;
+
+2. Donner nom, job et salaire des employés de type MANAGER dont le salaire est supérieur à 2800
+SELECT ename, job,sal FROM `EMP` where job="MANAGER" AND sal>=2800;
+
+3 Donner la liste des MANAGER n'appartenant pas au département 30
+SELECT ename, job,sal FROM `EMP` where job="MANAGER" AND deptno!=30;
+
+4. Liste des employés de salaire compris entre 1200 et 1400
+SELECT ename, job,sal FROM `EMP` where sal BETWEEN 1200 and 1400;
+
+5. Liste des employés des départements 10 et 30 classés dans l'ordre alphabétique
+SELECT ename, job,sal FROM `EMP` where deptno=10 or deptno=30 order by ename ASC;
+
+6. Liste des employés du département 30 classés dans l'ordre des salaires croissants
+SELECT ename, job,sal FROM `EMP` where deptno=30 order by sal ASC;
+
+7. Liste de tous les employés classés par emploi et salaires décroissants
+SELECT ename, job,sal FROM `EMP` order by job DESC,sal DESC;
+
+8. Liste des différents emplois
+SELECT  DISTINCT job FROM `EMP` ;
+
+9. Donner le nom du département où travaille ALLEN
+SELECT  deptno FROM `EMP` WHERE ename="ALLEN";
+
+10. Liste des employés avec nom du département, nom, job, salaire classés par noms de départements et 
+par salaires décroissants
+
+SELECT dname,ename,job,sal 
+FROM emp NATURAL JOIN DEPT 
+ORDER BY dname DESC,sal DESC;
+
+11. Liste des employés avec affichage de nom, salaire, commissions, salaire + 
+commissions
+SELECT ename,sal,comm,sal+IFNULL(comm, 0)
+FROM emp
+
+12. Liste des employés du département 20: nom, job, date d'embauche sous forme VEN 28 FEV 1997'
+
+SET lc_time_names='fr_FR';
+SELECT ename,job,DATE_FORMAT(hiredate, "%a %d %b %Y") AS "date d'embauche" 
+from emp where deptno=20
+
+13. Donner le salaire le plus élevé par département
+
+SELECT deptno,MAX(sal)
+FROM emp
+GROUP BY deptno
+
+14. Donner département par département masse salariale, nombre d'employés, salaire moyen par type 
+d'emploi.
+SELECT dname,job,SUM(sal+IFNULL(comm,0)) AS 'masse salariale',COUNT(empno) AS 'nombre d\'employés',AVG(sal)AS 'salaire moyen'
+FROM emp INNER JOIN DEPT
+ON emp.deptno=DEPT.deptno
+GROUP BY dname,job
+
+15.
+HAVING COUNT(empno)>=2
+
+16. Liste des employés (Nom, département, salaire) de même emploi que JONES
+SELECT ename,dname,sal,job
+FROM emp INNER JOIN DEPT
+ON emp.deptno=DEPT.deptno
+WHERE job=(SELECT job FROM emp where ename="JONES")
+AND ename!="JONES"
+
+17.Liste des employés (nom, salaire) dont le salaire est supérieur à la moyenne globale des salaires
+SELECT ename,sal
+FROM emp
+WHERE sal>(SELECT AVG(sal) FROM emp)
+
+18
+CREATE TABLE PROJET (
+    num_proj smallint AUTO_INCREMENT PRIMARY KEY,
+    nom_proj varchar(5) not null,
+    budget decimal(10,2) not null) AUTO_INCREMENT=101 ;
+
+19
+ALTER TABLE emp
+ADD num_proj smallint not null,
+ADD CONSTRAINT FK_emp_proj FOREIGN KEY (num_proj) REFERENCES PROJET(num_proj)
+
+INSERT INTO PROJET 
+VALUES(num_proj, "ALPHA", 96000),
+(num_proj, "BETA", 82000),
+(num_proj, "GAMMA", 15000);
+
+UPDATE emp 
+SET num_proj=(CASE
+	WHEN emp.deptno=30 AND emp.job="SALESMAN" THEN 101
+    	ELSE 102
+END)
+
+
+20. Créer une vue comportant tous les employés avec nom, job, nom de département et nom de projet
+
+CREATE VIEW truite
+AS SELECT ename,job,dname,nom_proj
+FROM emp INNER JOIN DEPT
+ON emp.deptno=DEPT.deptno
+INNER JOIN PROJET
+ON emp.deptno=DEPT.deptno
+
+
+21. A l'aide de la vue créée précédemment, lister tous les employés avec nom, job, nom de département 
+et nom de projet triés sur nom de département et nom de projet
+
+SELECT ename,job,dname,nom_proj
+FROM truite
+ORDER BY dname,nom_proj
+
+22. Donner le nom du projet associé à chaque manager	
+
+SELECT ename,nom_proj
+FROM truite
+WHERE job="MANAGER"
+
+
+2eme partie
+
+2. Afficher la liste des employés qui ne sont pas manager et qui ont été embauchés en 81
+
+where job SOUNDS LIKE "mannajeur" 
+
+SELECT ename
+FROM emp
+where job!="MANAGER" AND YEAR(CAST(hiredate AS DATE))=1981    ou LIKE "1981%" ou DATE_FORMAT(hiredate,"%y")=81
+
+3.Afficher la liste des employés ayant une commission
+
+SELECT ename
+FROM emp
+where comm>0 and comm is not null
+
+4. Afficher la liste des noms, numéros de département, jobs et date d'embauche triés par Numero de 
+Département et JOB les derniers embauches d'abord
+
+SELECT ename,deptno,job,CAST(hiredate AS DATE) AS embauche
+FROM emp
+ORDER BY deptno,job,embauche DESC
+
+5. Afficher la liste des employés travaillant à DALLAS
+
+SELECT ename
+FROM emp INNER JOIN DEPT ON emp.deptno=DEPT.deptno
+WHERE loc="DALLAS"
+
+6. Afficher les noms et dates d'embauche des employés embauchés avant leur manager, avec le nom et 
+date d'embauche du manager.
+
+SELECT DISTINCT sbire.ename,CAST(sbire.hiredate AS DATE) AS embauche,manager.ename
+FROM emp sbire,emp manager
+WHERE manager.empno=sbire.mgr AND CAST(sbire.hiredate AS DATE)<CAST(manager.hiredate AS DATE)
+
+7. Lister les numéros des employés n'ayant pas de subordonné.
+SELECT  ename
+FROM emp 
+WHERE empno NOT IN (SELECT DISTINCT mgr
+FROM emp WHERE mgr IS NOT null)
+
+8. Afficher les noms et dates d'embauche des employés embauchés avant BLAKE.
+
+SELECT  ename,CAST(hiredate AS DATE) AS embauche
+FROM emp 
+WHERE CAST(hiredate AS DATE) < (SELECT hiredate
+FROM emp WHERE ename="BLAKE")
+
+9. Afficher les employés embauchés le même jour que FORD.
+
+SELECT  ename,CAST(hiredate AS DATE) AS embauche
+FROM emp 
+WHERE ename!="FORD" AND CAST(hiredate AS DATE) = (SELECT hiredate
+FROM emp WHERE ename="FORD")
+
+10. Lister les employés ayant le même manager que CLARK.
+
+SELECT ename
+FROM emp 
+WHERE ename!="CLARK" and  mgr = (SELECT mgr
+FROM emp WHERE ename="CLARK")
+
+11. Lister les employés ayant même job et même manager que TURNER.
+SELECT ename
+FROM emp 
+WHERE ename!="TURNER" and  job = (SELECT job
+FROM emp WHERE ename="TURNER") and mgr = (SELECT mgr
+FROM emp WHERE ename="TURNER")
+
+12. Lister les employés du département RESEARCH embauchés le même jour que quelqu'un du 
+département SALES
+
+SELECT ename
+FROM emp INNER JOIN dept on emp.deptno=dept.deptno
+WHERE dname="RESEARCH" and  CAST(hiredate AS DATE) = any (SELECT CAST(hiredate AS DATE)
+ FROM emp INNER JOIN dept on emp.deptno=dept.deptno WHERE dname="SALES")
+
+13. Lister le nom des employés et également le nom du jour de la semaine correspondant à leur date 
+d'embauche.
+SELECT ename,dayname(CAST(hiredate AS DATE))
+FROM emp
+
+14. Donner, pour chaque employé, le nombre de mois qui s'est écoulé entre leur date d'embauche et la 
+date actuelle.
+
+select ename, TIMESTAMPDIFF(month,hiredate,CURRENT_DATE()) as anciennete
+from emp
+
+15. Afficher la liste des employés ayant un M et un A dans leur nom.
+select ename
+from emp
+where ename LIKE "%M%" AND ename LIKE "%A%"
+
+
+16. Afficher la liste des employés ayant deux 'A' dans leur nom.
+select ename
+from emp
+where ename LIKE "%A%A%"
+
+17. Afficher les employés embauchés avant tous les employés du département 10
+SELECT ename,deptno
+FROM emp 
+WHERE CAST(hiredate AS DATE) < ALL (SELECT CAST(hiredate AS DATE)
+ FROM emp  WHERE deptno=10)
+
+18.Sélectionner le métier où le salaire moyen est le plus faible.
+SELECT job,AVG(sal) AS "salaire moyen"
+FROM emp 
+GROUP BY job
+LIMIT 1
+
+OUOUOUOUOUOUOUOUOUOU
+
+SELECT job,AVG(sal) AS "salaire moyen le plus faible"
+FROM emp 
+GROUP BY job
+HAVING  AVG(sal)<= ALL (SELECT job,AVG(sal)  FROM emp  GROUP BY job)
+
+
+19. Sélectionner le département ayant le plus d'employés.
+SELECT deptno,COUNT(deptno) AS "nombre d'employés"
+FROM emp 
+GROUP BY deptno
+ORDER BY COUNT(deptno) DESC
+LIMIT 1
+
+20. Donner la répartition en pourcentage du nombre d'employés par département selon le modèle cidessous
+SELECT deptno,ROUND((COUNT(deptno)/(SELECT COUNT(ename) from emp))*100,2)  AS "répartition en %"
+FROM emp 
+GROUP BY deptno
+ORDER BY COUNT(deptno)
+
+Avioooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+
+CREATE table avion(
+    av int,
+    marque varchar(20) not null,
+    type varchar(15) not null,
+    capacite SMALLINT not null,
+    localisation varchar(30) not null,
+    CONSTRAINT pk_av PRIMARY KEY(av)
+    );
+    
+CREATE TABLE pilote(
+    pil int AUTO_INCREMENT,
+    nom varchar(20) not null,
+    adresse varchar(20) not null,
+    CONSTRAINT pk_pil PRIMARY KEY(pil)
+);
+
+CREATE TABLE vols(
+    vol char(5),
+    CONSTRAINT pk_vol PRIMARY KEY(vol),
+    avion int not null,
+    pilote int not null,
+    vd varchar(20) NOT null,
+    va varchar(20) NOT null,
+    hd tinyint not null,
+    ha tinyint not null,
+    CONSTRAINT fk_volav FOREIGN KEY(avion) REFERENCES avion(av),
+    CONSTRAINT fk_volpil FOREIGN KEY(pilote) REFERENCES pilote(pil))
+
+insert into pilote
+VALUES (1, "SERGE", "Nice"),
+(2, "JEAN", "Paris"),
+(3, "CLAUDE", "Grenoble"),
+(4, "ROBERT", "Nantes"),
+(5, "SIMON", "Paris"),
+(6, "LUCIEN", "Toulouse"),
+(7,"BERTRAND", "Lyon"),
+(8, "HERVE", "Bastia"),
+(9, "LUC", "Paris");
+
+
+INSERT INTO vol
+VALUES ("IT100", 100, 1, "NICE", "PARIS", 7, 9),
+("IT101", 100, 2, "PARIS", "TOULOUSE", 11, 12),
+("IT102", 101, 1, "PARIS", "NICE", 12, 14),
+("IT103", 105, 3, "GRENOBLE", "TOULOUSE", 9, 11),
+("IT104", 105, 3, "TOULOUSE", "GRENOBLE", 17, 19),
+("IT105", 107, 7, "LYON", "PARIS", 6, 7),
+("IT106", 109, 8, "BASTIA", "PARIS", 10, 13),
+("IT107", 106, 9, "PARIS", "BRIVE", 7, 8),
+("IT108", 106, 9,"BRIVE", "PARIS", 19, 20),
+("IT109", 107, 7, "PARIS", "LYON", 18, 19),
+("IT110", 102, 2, "TOULOUSE", "PARIS", 15, 16),
+("IT111", 101, 4, "NICE", "NANTES", 17, 19),
+("IT112", 103, 5, "PARIS", "NICE", 11, 13),
+("IT113", 104, 6, "NICE", "PARIS", 13, 15);
+
+
+1 Quels sont les vols au départ de Paris entre 12h et 14h ?
+
+SELECT vol
+FROM vol
+WHERE hd BETWEEN 12 and 14
+
+2 Quels sont les pilotes dont le nom commence par "S" 
+SELECT nom FROM pilote
+where nom LIKE "s%"
+
+3 Pour chaque ville, donner le nombre et les capacités minimum et maximum des 
+avions qui s'y trouvent.
+SELECT localisation,COUNT(av),min(capacite),MAX(capacite)
+FROM avion
+GROUP BY localisation
+
+4 Pour chaque ville, donner la capacité moyenne des avions qui s'y trouvent et 
+cela par type d'avion.
+SELECT localisation,type,round(AVG(capacite),0) FROM avion GROUP BY type,localisation 
+ORDER BY localisation
+
+5 Quelle est la capacité moyenne des avions pour chaque ville ayant plus de 1 
+avion 
+SELECT localisation,round(AVG(capacite),0)
+FROM avion 
+GROUP BY localisation 
+HAVING COUNT(av)>1
+
+6 Quels sont les noms des pilotes qui habitent dans la ville de localisation d'un 
+Airbus
+SELECT nom
+FROM pilote 
+where adresse=any (SELECT localisation from avion where marque="AIRBUS")
+
+7 Quels sont les noms des pilotes qui conduisent un Airbus et qui habitent dans 
+la ville de localisation d'un Airbus ?
+
+SELECT DISTINCT nom
+FROM (pilote INNER JOIN vol ON vol.pilote=pilote.pil) INNER JOIN avion on vol.avion=avion.av
+WHERE adresse=localisation AND marque="AIRBUS"
+
+8 Quels sont les noms des pilotes qui conduisent un Airbus ou qui habitent dans 
+la ville de localisation d'un Airbus ? lol
+
+9 Quels sont les noms des pilotes qui conduisent un Airbus sauf ceux qui 
+habitent dans la ville de localisation d'un Airbus ?
+
+SELECT DISTINCT nom
+FROM (pilote INNER JOIN vol ON vol.pilote=pilote.pil) INNER JOIN avion on vol.avion=avion.av
+WHERE marque="AIRBUS" AND NOT adresse=localisation
+
+10 Quels sont les vols ayant un trajet identique ( VD, VA ) à ceux assurés par 
+Serge ?
+
+SELECT vol,VD,VA
+FROM pilote INNER JOIN vol ON vol.pilote=pilote.pil 
+WHERE VD = ANY (SELECT VD from pilote INNER JOIN vol ON vol.pilote=pilote.pil where nom="SERGE") 
+AND VA = ANY (SELECT VA from pilote INNER JOIN vol ON vol.pilote=pilote.pil where nom="SERGE") AND nom!="SERGE"
+
+11 Donner toutes les paires de pilotes habitant la même ville ( sans doublon ).
+
+SELECT DISTINCT pil1.nom,pil2.nom
+FROM pilote pil1, pilote pil2 
+WHERE pil1.adresse = pil2.adresse AND pil1.nom!=pil2.nom AND pil1.nom<pil2.nom
+
+12 Quels sont les noms des pilotes qui conduisent un avion que conduit aussi le 
+pilote n°1 ?
+SELECT nom
+FROM (pilote INNER JOIN vol ON vol.pilote=pilote.pil) INNER JOIN avion on vol.avion=avion.av
+WHERE av=ANY (SELECT av from (pilote INNER JOIN vol ON vol.pilote=pilote.pil) INNER JOIN avion on vol.avion=avion.av WHERE nom="SERGE") AND nom!="SERGE"
+
+13 Donner toutes les paires de villes telles qu'un avion localisé dans la ville de 
+départ soit conduit par un pilote résidant dans la ville d'arrivée.
+
+SELECT localisation,adresse
+FROM (pilote INNER JOIN vol ON vol.pilote=pilote.pil) INNER JOIN avion on vol.avion=avion.av
+WHERE VD=localisation AND VA=adresse
+
+14 Sélectionner les numéros des pilotes qui conduisent tous les Airbus ?
+SELECT nom
+FROM pilote INNER JOIN vol ON vol.pilote=pilote.pil
+WHERE vol=ALL (SELECT vol FROM vol INNER JOIN avion ON avion.av=vol.avion WHERE marque="AIRBUS")
+
+ARCHIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+
+1. Sélectionner l'identifiant, le nom de tous les clients dont le numéro de téléphone commence par '04
+
+SELECT client_ref,client_nom
+FROM clients 
+WHERE client_telephone LIKE "04%"
+
+2. Sélectionner l'identifiant, le nom et le type de tous les clients qui sont des particuliers
+
+SELECT client_ref,client_nom,type_client_libelle
+FROM clients INNER JOIN type_clients ON clients.type_client_id=type_clients.type_client_id
+WHERE type_client_libelle="particulier"
+
+3.Sélectionner l'identifiant, le nom et le type de tous les clients qui ne sont pas des particuliers
+
+pareil avec !=
+
+4.Sélectionner les projets qui ont été livrés en retard
+
+SELECT projet_ref,projet_date_fin_prevue,projet_date_fin_effective
+FROM projets
+WHERE projet_date_fin_prevue<projet_date_fin_effective
+
+5. Sélectionner la date de dépôt, la date de fin prévue, les superficies, le prix de tous les projets avec le nom du client et le nom de l'architecte associés au projet
+
+SELECT projet_date_depot,projet_date_fin_prevue,projet_superficie_totale,projet_prix,client_nom,emp_nom
+FROM projets INNER JOIN clients on projets.client_ref=clients.client_ref INNER JOIN employes ON projets.emp_matricule=employes.emp_matricule
+WHERE fonction_id=1
+
+6. Sélectionner tous les projets (dates, superficies, prix) avec le nombre d'intervenants autres que le client et l'architecte
+
+SELECT projet_date_depot,projet_superficie_totale,projet_prix,client_nom,COUNT(participer.projet_ref) AS "nombre d'autres intervenants"
+FROM projets INNER JOIN clients on projets.client_ref=clients.client_ref INNER JOIN participer ON participer.projet_ref=projets.projet_ref
+GROUP BY participer.projet_ref
+
+7. Sélectionner les types de projets avec, pour chacun d'entre eux, le nombre de projets associés et le prix moyen pratiqué
+
+SELECT type_projet_libelle,COUNT(projets.type_projet_id),ROUND(AVG(projet_prix),0)
+FROM type_projets INNER JOIN projets ON type_projets.type_projet_id=projets.type_projet_id
+GROUP BY type_projet_libelle
+
+8. Sélectionner les types de travaux avec, pour chacun d'entre eux, la superficie du projet la plus grande
+SELECT type_travaux_libelle,MAX(projet_superficie_totale)
+FROM type_travaux INNER JOIN projets ON type_travaux.type_travaux_id=projets.type_travaux_id
+GROUP BY type_travaux_libelle
+
+9. Sélectionner l'ensembles des projets (dates, prix) avec les informations du client (nom, telephone, adresse), le type de travaux et le type de projet.
+
+SELECT projet_ref, projet_date_depot,projet_date_fin_prevue,projet_prix,client_nom,client_telephone,CONCAT(adresse_num_voie," ",adresse_voie," ",adresse_ville," ",adresse_code_postal) AS "Adresse",type_travaux_libelle,type_projet_libelle
+FROM projets INNER JOIN type_travaux ON type_travaux.type_travaux_id=projets.type_travaux_id INNER JOIN type_projets ON type_projets.type_projet_id=projets.type_projet_id INNER JOIN clients on projets.client_ref=clients.client_ref INNER join adresses ON clients.adresse_id=adresses.adresse_id
+
+10. Sélectionner les projets dont l'adresse est identique au client associé
+
+SELECT projet_ref, CONCAT(adresse_num_voie," ",adresse_voie," ",adresse_ville," ",adresse_code_postal) AS "Adresse"
+FROM projets INNER JOIN clients on projets.client_ref=clients.client_ref INNER join adresses ON clients.adresse_id=adresses.adresse_id
+WHERE projets.adresse_id=clients.adresse_id
+
+créer procédure stockée qui renvoie dans une var pour un salarié le budget total des projets dont il est responsablle, 0 si pas de responserie
+
+DELIMITER truite
+create procedure afficher_budget_gere ( in nom_salarie VARCHAR(50),OUT budget_total decimal(10,2))
+BEGIN
+  SELECT ifnull(SUM(projets.projet_prix),0) INTO budget_total
+  FROM projets 
+  NATURAL JOIN employes 
+  WHERE employes.emp_nom=nom_salarie;
+END truite
+ 
+
+
+VOYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGE
+
+CREATE TABLE sales(
+   com_code CHAR(5),
+   com_name VARCHAR(64) NOT NULL,
+   com_password CHAR(60) NOT NULL,
+   com_code_1 CHAR(5),
+   PRIMARY KEY(com_code),
+   FOREIGN KEY(com_code_1) REFERENCES sales(com_code)
+);
+
+CREATE TABLE clients(
+   clients_id INT AUTO_INCREMENT,
+   client_lastname VARCHAR(32) NOT NULL,
+   client_firstname VARCHAR(32) NOT NULL,
+   client_email VARCHAR(128) NOT NULL,
+   client_phone CHAR(16) NOT NULL,
+   client_added DATE NOT NULL,
+   client_password CHAR(60) NOT NULL,
+   com_code CHAR(5) NOT NULL,
+   PRIMARY KEY(clients_id),
+   FOREIGN KEY(com_code) REFERENCES sales(com_code)
+);
+
+CREATE TABLE services(
+   service_code INT AUTO_INCREMENT,
+   service_name VARCHAR(32) NOT NULL,
+   service_description TEXT,
+   PRIMARY KEY(service_code)
+);
+
+CREATE TABLE themes(
+   theme_code INT AUTO_INCREMENT,
+   theme_name VARCHAR(32) NOT NULL,
+   theme_description TEXT,
+   PRIMARY KEY(theme_code)
+);
+
+CREATE TABLE countries(
+   country_code CHAR(2),
+   country_name VARCHAR(128) NOT NULL,
+   PRIMARY KEY(country_code)
+);
+
+CREATE TABLE cities(
+   city_code INT AUTO_INCREMENT,
+   city_name VARCHAR(128) NOT NULL,
+   country_code CHAR(2) NOT NULL,
+   PRIMARY KEY(city_code),
+   FOREIGN KEY(country_code) REFERENCES countries(country_code)
+);
+
+CREATE TABLE trips(
+   trip_code INT AUTO_INCREMENT,
+   trip_title VARCHAR(128) NOT NULL,
+   trip_available INT NOT NULL,
+   trip_start DATETIME NOT NULL,
+   trip_end DATETIME NOT NULL,
+   trip_price DECIMAL(7,2) NOT NULL,
+   trip_overview TEXT,
+   trip_description TEXT,
+   city_code INT NOT NULL,
+   PRIMARY KEY(trip_code),
+   FOREIGN KEY(city_code) REFERENCES cities(city_code),
+   CONSTRAINT prix CHECK(trip_price>0)
+);
+
+CREATE TABLE orders(
+   clients_id INT,
+   trip_code INT,
+   order_quantity TINYINT NOT NULL,
+   order_paid BOOLEAN NOT NULL,
+   PRIMARY KEY(clients_id, trip_code),
+   FOREIGN KEY(clients_id) REFERENCES clients(clients_id),
+   FOREIGN KEY(trip_code) REFERENCES trips(trip_code)
+);
+
+CREATE TABLE suggest(
+   theme_code INT,
+   trip_code INT,
+   PRIMARY KEY(theme_code, trip_code),
+   FOREIGN KEY(theme_code) REFERENCES themes(theme_code),
+   FOREIGN KEY(trip_code) REFERENCES trips(trip_code)
+);
+
+CREATE TABLE note(
+   clients_id INT,
+   service_code INT,
+   trip_code INT,
+   service_note TINYINT,
+   service_commentaire TEXT,
+   PRIMARY KEY(clients_id, service_code, trip_code),
+   FOREIGN KEY(clients_id) REFERENCES clients(clients_id),
+   FOREIGN KEY(service_code) REFERENCES services(service_code),
+   FOREIGN KEY(trip_code) REFERENCES trips(trip_code),
+   CONSTRAINT note_max CHECK(service_note BETWEEN 0 and 5)
+);
+
+CREATE TABLE steps(
+   trip_code INT,
+   city_code INT,
+   step_start DATETIME NOT NULL,
+   step_end DATETIME NOT NULL,
+   PRIMARY KEY(trip_code, city_code),
+   FOREIGN KEY(trip_code) REFERENCES trips(trip_code),
+   FOREIGN KEY(city_code) REFERENCES cities(city_code)
+);
+
+insert into countries
+VALUES ("FR","Fronce"),
+("DE","Halleumagneux"),
+("BE","Belgique_une_fois"),
+("IT","Spaghetti"),
+("MA","Marocanards"),
+("UA","Ukroi"),
+("GB","Kiltland")
+
+insert INTO sales
+VALUES ("bobob","Bob","coucoubob",null),
+("jacky","Caillou","moitapercaillou",null),
+("flifi","Franssousky","anton",null),
+("blubb","Sdgreq","sgstdftg",null),
+("popop"
+
+insert into clients (clients_id,client_added,client_email,client_firstname,client_lastname,client_password,client_phone,com_code)
+VALUES (1,"1980-01-01","tonnerredebrest@gmail.com","Archibald","Haddock","bachibouzouk",0235987458,"bobob"),
+(2,"1987-05-15","ssssssssssssss@gmail.com","Tusséki","Georges","jaimelesfleurs26",0365987502,"jacky"),
+(3,"2020-12-25","petitbrigand@yahoo.us","Dalton","Joe","rayures123",0698657541,"flifi"),
+(4,"1999-12-25","envoyezdeslettresbandedeguignols@laponie.fi","Pere","Noël","vivelesclavage666",0836656565,"blubb"),
+(5,"2012-03-24","gougougagak@bob.su","Outang","Laurent","banana",0606060606,"popop")
+
+
+INSERT INTO service_voyage(trip_code,service_code)
+VALUES(1,1),(1,2),(1,3),(1,5),(2,1),(2,2),(2,4),(2,5),(3,4),(4,1),(4,6),(5,1);
+
+CREATE VIEW select_clients as SELECT clients_id,client_email,client_firstname,client_lastname,client_phone,clients.com_code,com_name FROM clients NATURAL JOIN sales;
+
+create VIEW `ailleurs` AS SELECT `trips`.`trip_code` AS `trip_code`, `cities`.`city_name` AS `city_name`, `cities`.`country_code` AS `country_code`, `countries`.`country_name` AS `country_name`, `trips`.`trip_available` AS `trip_available`, `trips`.`trip_start` AS `trip_start`, `trips`.`trip_end` AS `trip_end`, `trips`.`trip_price` AS `trip_price`, `trips`.`trip_title` AS `trip_title`, `trips`.`trip_description` AS `trip_description`, `trips`.`trip_overview` AS `trip_overview` FROM trips NATURAL JOIN cities NATURAL JOIN countries;
+
+1) Ajout d’un client
+DELIMITER truite
+create PROCEDURE create_client(in email varchar(128),in firstname varchar(32),in lastname varchar(32),in passwd varchar(60), in phone char(16),in comcode char(5))
+BEGIN
+INSERT INTO clients(client_added,client_email,client_firstname,client_lastname,client_password,client_phone,com_code)
+VALUES(NOW(),email,firstname,lastname,passwd,phone,comcode);
+END truite
+delimiter ;
+
+2) Modification d’un client
+DROP PROCEDURE modif_client;
+DELIMITER truie
+create procedure modif_client(in idclientachanger int,in email varchar(128),in firstname varchar(32),in lastname varchar(32),in passwd varchar(60), in phone char(16),in comcode char(5))
+BEGIN
+UPDATE clients
+SET client_email=ifnull(email,client_email),client_firstname=ifnull(firstname,client_firstname),client_lastname=ifnull(lastname,client_lastname),client_password=ifnull(passwd,client_password),client_phone=ifnull(phone,client_phone),com_code=ifnull(comcode,com_code)
+WHERE clients_id=idclientachanger;
+END truie
+DELIMITER ;
+
+SET @idclientachanger:=6;
+SET @email:="pouet@gmail.com";
+SET @firstname:=null;
+set @lastname:=null;
+set @passwd:="coucou";
+set @phone:=null;
+set @comcode:=null;
+call modif_client(@idclientachanger,@email,@firstname,@lastname,@passwd,@phone,@comcode);
+
+3) Ajout d’un voyage
+DELIMITER |
+create PROCEDURE add_trip(in city int,in is_available tinyint,in description text,in trip_start datetime,in trip_end datetime,in overview text,in price decimal(7,2) ,in title varchar(128) )
+BEGIN
+INSERT INTO trips(city_code,trip_available,trip_description,trip_start,trip_end,trip_overview,trip_price,trip_title)
+VALUES(city,is_available,description,trip_start,trip_end,overview,price,title);
+END |
+DELIMITER ;
+
+SET @city=1;
+set @is_available=1;
+SET @description=null;
+set @tstart="2026-10-25";
+set @tend="2026-10-27";
+set @overview=null;
+set @price=9;
+set @title="bob";
+call add_trip(@city,@is_available,@description,@tstart,@tend,@overview,@price,@title);
+
+
+4) Modification d’un voyage
+DELIMITER |
+create PROCEDURE MODIFY_trip(in p_trip_code int, in city int,in is_available tinyint,in description text,in tstart datetime,in tend datetime,in overview text,in price decimal(7,2) ,in title varchar(128) )
+BEGIN
+UPDATE trips
+SET city_code=ifnull(city,city_code),trip_available=ifnull(is_available,trip_available),trip_description=ifnull(description,trip_description),trip_start=ifnull(tstart,trip_start),trip_end=ifnull(tend,trip_end),trip_overview=ifnull(overview,trip_overview),trip_price=ifnull(price,trip_price),trip_title=ifnull(title,trip_title)
+WHERE trip_code=p_trip_code;
+END |
+DELIMITER ;
+
+set@trip_code=1
+SET @city=null;
+set @is_available=null;
+SET @description=null;
+set @tstart=null;
+set @tend=null;
+set @overview=null;
+set @price=null;
+set @title="Voyage choux,bières,chocolats et frites une fois";
+
+call modify_trip(@trip_code,@city,@is_available,@description,@tstart,@tend,@overview,@price,@title)
+
+5) Ajout d’une escale à un voyage
+DELIMITER bob
+CREATE PROCEDURE add_step(IN p_city_code int,in p_trip_code int,IN p_step_start datetime,IN p_step_end datetime)
+BEGIN 
+INSERT INTO steps(city_code,trip_code,step_start,step_end)
+VALUES(p_city_code,p_trip_code,p_step_start,p_step_end);
+END bob
+DELIMITER ;
+
+call(4,6,2026-10-25,2026-10-27)
+
+6) Ajout d’une note d’un client pour un service associé à un voyage
+
+DELIMITER leboulghourcestpasbon
+create procedure add_note(p_service varchar(32),p_voyage int,p_note tinyint)
+begin
+UPDATE note
+SET service_note=p_note
+WHERE service_code=(SELECT service_code from services WHERE service_name=p_service) AND trip_code=p_voyage;
+END leboulghourcestpasbon
+DELIMITER ;
+
+
+trigger
+ Lorsqu’un client est ajouté : la date d’ajout ne peut être ultérieure à la date du jour
+
+DELIMITER truite
+CREATE TRIGGER before_create_client BEFORE INSERT
+ON clients FOR EACH ROW
+BEGIN
+	IF NEW.client_added>NOW()
+    THEN
+    	INSERT INTO erreurs(erreurs.erreur_message)
+        VALUES ("blabla!");
+    END IF
+END truite
+DELIMITER ;
+
+2)
+
+DELIMITER truite
+CREATE TRIGGER before_update_client BEFORE UPDATE
+ON clients FOR EACH ROW
+BEGIN
+	IF NEW.client_added!=OLD.client_added
+    THEN
+    	INSERT INTO erreurs(erreurs.erreur_message)
+        VALUES ("La date d'ajout ne peut pas être modifiée!");
+    END IF;
+END truite
+DELIMITER ;
+
+
+3)
+
+DELIMITER pikachu
+CREATE TRIGGER before_insert_trips BEFORE INSERT
+ON trips FOR EACH ROW
+BEGIN
+     IF NEW.trip_price<10
+    THEN
+    	INSERT INTO erreurs(erreurs.erreur_message)
+        VALUES ("Attention Arnaque, prix trop bas!");
+    END IF;
+    IF NOT NEW.trip_price BETWEEN 0 AND 10000
+    THEN
+    	INSERT INTO erreurs(erreurs.erreur_message)
+        VALUES ("Le prix est hors de la fourchette prévue!");
+    END IF;
+END pikachu
+DELIMITER ;
+
+4)
+
+DELIMITER IVE
+CREATE TRIGGER before_update_trips BEFORE UPDATE
+ON trips FOR EACH ROW
+BEGIN
+     IF NEW.trip_price<10
+    THEN
+    	INSERT INTO erreurs(erreurs.erreur_message)
+        VALUES ("Attention Arnaque, prix trop bas!");
+    END IF;
+    IF NOT NEW.trip_price BETWEEN 0 AND 10000
+    THEN
+    	INSERT INTO erreurs(erreurs.erreur_message)
+        VALUES ("Le prix est hors de la fourchette prévue!");
+    END IF;
+    SELECT isnull(orders.trip_code) INTO @bob FROM orders WHERE trip_code=NEW.trip_code;
+	IF @bob
+    THEN
+    CALL die("impossible de modifier le prix, car une réservation l'utilise");
+    END IF;
+ENDIVE
+Delimiter ;
+
+5)
+
+DELIMITER ORMI
+CREATE TRIGGER before_insert_note BEFORE INSERT ON note FOR EACH ROW
+BEGIN
+	IF NOT note BETWEEN 0 AND 5
+    THEN 
+    	CALL die("La note doit être entre 0 et 5");  
+    END IF;
+	SELECT ISNULL(trip_code) INTO @tortank FROM service_voyage WHERE service_code=NEW.service_code;
+    IF @tortank
+    THEN
+    	CALL die("pas de service associé au voyage");
+    END IF;
+   SELECT trip_end into @dracaufeu FROM trips WHERE trip_code=NEW.trip_code;
+   IF @dracaufeu > NOW()
+   THEN 
+   	CALL die("le voyage n'est pas fini!");
+   END IF;
+   SELECT order_paid INTO @florizarre FROM orders WHERE clients_id=NEW.clients_id;
+   IF @florizarre!=1
+   THEN
+   	CALL die("Le client n'a pas payé pour ce voyage!");
+   END IF;
+ENDORMI
+DELIMITER ;
+
+
+6)
+DELIMITER OLORI
+CREATE TRIGGER before_update_note BEFORE UPDATE ON note FOR EACH ROW
+BEGIN
+	IF NOT note BETWEEN 1 AND 5
+    THEN 
+    	CALL die("La note doit être entre 1 et 5");  
+    END IF;
+ENDOLORI
+DELIMITER ;
+
+#######################################################################################################################################################
+######################## MONGO DBob ##################################################################################################################
+#######################################################################################################################################################
+
+1. Donner nom, job, numéro et salaire de tous les employés,
+puis seulement des employés du département 10
+
+db.employe.find({},{ename:1,job:1,_id:1,sal:1})
+
+db.employe.find({deptno:10},{ename:1,job:1,_id:1,sal:1})
+
+2. Donner nom, job et salaire des employés de type MANAGER dont le salaire est supérieur à 2800
+db.employe.find({job:"MANAGER",sal: {$gt:2800}},{ename:1,job:1,sal:1})
+
+3. Donner la liste des MANAGER n'appartenant pas au département 30
+db.employe.find({job:"MANAGER",deptno: {$ne:30}},{ename:1,job:1,sal:1})
+
+4. Liste des employés de salaire compris entre 1200 et 1400
+db.employe.find({sal: {$gte:1200,$lte:1400}},{ename:1,job:1,sal:1})
+
+5. Liste des employés des départements 10 et 30 classés dans l'ordre alphabétique
+db.employe.find({deptno: {$in:[10,30]}},{ename:1}).sort({ename:1})
+
+6. Liste des employés du département 30 classés dans l'ordre des salaires croissant
+db.employe.find({deptno:30},{ename:1,sal:1}).sort({sal:-1})
+
+7. Liste de tous les employés classés par emploi et salaires décroissants
+db.employe.find({},{ename:1,sal:1,job:1}).sort({job:-1,sal:-1})
+
+8. Liste des différents emplois
+db.employe.distinct("job")
+
+9. Donner le nom du département où travaille ALLEN
+db.employe.find({ename:"ALLEN"},{dname:1})
+
+10. Liste des employés avec nom du département, nom, job, salaire classés par noms de départements et 
+par salaires décroissants.
+db.employe.find({},{deptno:1,ename:1,sal:1,job:1}).sort({dname:-1,sal:-1})
+
+11. Liste des employés vendeurs (SALESMAN) avec affichage de nom, salaire, commissions, salaire + 
+commission
+db.employe.aggregate(
+   [
+     {$match: { job:"SALESMAN"}},
+     { $project: { job:1,ename:1,sal: 1,comm:1, argent: { $add: [ "$sal", "$comm" ] } } }
+   ]
+)
+
+13. Donner le salaire le plus élevé par département
+db.employe.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: "$dname",
+           maxsal: { $max: "$sal" }
+         }
+     }
+   ]
+)
+
+14.Donner département par département masse salariale, nombre d'employés, salaire moyen par type 
+d'emploi.
+
+db.employe.aggregate(
+   [
+     {$group:{_id: {dname:"$dname",job:"$job"},masseSalariale: { $sum: "$sal" },nbEmployes: {$count:{}},salaireMoyen:{$avg: "$sal"}}}
+   ]
+)
+
+
+
+(localdb)\mssqlLocaldb
