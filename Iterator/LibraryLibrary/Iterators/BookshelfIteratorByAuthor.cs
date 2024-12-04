@@ -12,7 +12,7 @@ namespace LibraryLibrary.Iterators
 
         public BookshelfIteratorByAuthor(Bookshelf bookshelf)
         {
-            IEnumerable<Book> books = bookshelf.Books.OrderBy(book => book.Author);
+            IEnumerable<Book> books = bookshelf.OrderBy(book => book.Author);
 
             foreach (Book book in books)
             {

@@ -4,11 +4,9 @@
     {
         private static MachineMonoThread? _instance;
         private int _totalVotes = 0;
-
         private MachineMonoThread()
         {
         }
-
         public static MachineMonoThread Instance
         {
             get
@@ -23,13 +21,11 @@
             }
 
         }
-
         public string RegisterVote()
         {
             _totalVotes += 1;
             return ("Registered Vote #" + _totalVotes);
         }
-
         public int TotalVotes
         {
             get

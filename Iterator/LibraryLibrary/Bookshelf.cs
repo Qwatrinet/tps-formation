@@ -7,11 +7,7 @@ namespace LibraryLibrary
     public class Bookshelf : IEnumerable<Book>
     {
         private List<Book> _books = new List<Book>();
-
         public int Count { get { return _books.Count; } }
-
-        public List<Book> Books { get => _books; set => _books = value; }
-
         public Book this[int key]
         {
             get => _books[key];

@@ -6,7 +6,6 @@
         private int _totalVotes = 0;
 
         private static readonly object lockObj = new object();
-
         private MachineMultiThreadLock()
         {
         }

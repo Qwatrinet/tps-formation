@@ -8,7 +8,6 @@
         private MachineMultiThreadLazy()
         {
         }
-
         public static MachineMultiThreadLazy Instance
         {
             get
@@ -16,13 +15,11 @@
                 return _instance.Value;
             }
         }
-
         public string RegisterVote()
         {
             _totalVotes += 1;
             return "Registered Vote #" + _totalVotes;
         }
-
         public int TotalVotes
         {
             get
