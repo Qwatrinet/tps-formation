@@ -1,6 +1,7 @@
 ﻿using BankLibrary;
 using System;
 using System.IO;
+using System.Security.Principal;
 using System.Text.Json;
 
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace EmpruntsForm
         [STAThread]
         static void Main()
         {
+            AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
             string loanToDeserialize = "";
             Loan PreviousLoan = new Loan();
             string fileName = "Loan.json";

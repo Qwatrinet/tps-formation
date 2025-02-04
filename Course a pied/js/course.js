@@ -1,6 +1,6 @@
-import Coureur from "./Coureur.js";
+import Coureur from "./coureur.js";
 
-const response = (await (await fetch("/coureur.json")).json());
+const response = (await (await fetch("/course/coureur.json")).json());
 
 function CreateTrCoureur(coureur) {
     const tr = document.createElement("tr")

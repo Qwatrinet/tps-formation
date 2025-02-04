@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Permissions;
 
 namespace BankLibrary
 {
@@ -40,6 +41,7 @@ namespace BankLibrary
             this.interests = loan.Interests;
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "utilisateurs")]
         public int CalcNumberPayments()
         {
             return this.duration / this.periodBetweenPayments;

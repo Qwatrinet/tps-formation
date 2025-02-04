@@ -66,6 +66,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entity", "Entity", "{3E57AB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityModel", "EntityModel\EntityModel.csproj", "{7A63079A-C951-4D80-99CD-9C155F410738}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{D74DD40C-DE77-47F9-829E-90237D6263FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,6 +162,8 @@ Global
 		{7A63079A-C951-4D80-99CD-9C155F410738}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A63079A-C951-4D80-99CD-9C155F410738}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A63079A-C951-4D80-99CD-9C155F410738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D74DD40C-DE77-47F9-829E-90237D6263FC}.Debug|Any CPU.ActiveCfg = Debug
+		{D74DD40C-DE77-47F9-829E-90237D6263FC}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
