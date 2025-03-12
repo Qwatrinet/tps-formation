@@ -30,9 +30,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Ajouter notre contexte
 builder.Services.AddDbContext<ContextePays>();
 
-builder.Services.AddCors(o => {
+builder.Services.AddCors(o =>
+{
     o.AddPolicy(name: "_localhostOrigins",
                       policy =>
                       {

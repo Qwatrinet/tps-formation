@@ -17,7 +17,7 @@ namespace ApiPays.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -32,13 +32,14 @@ namespace ApiPays.Migrations
 
                     b.Property<string>("CodePays")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(2)
+                        .HasColumnType("char")
                         .HasColumnName("code_pays");
 
                     b.Property<string>("NomPays")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("nom_pays");
 
                     b.HasKey("PaysId");

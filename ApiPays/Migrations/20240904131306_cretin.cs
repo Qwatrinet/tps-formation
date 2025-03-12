@@ -5,7 +5,7 @@
 namespace ApiPays.Migrations
 {
     /// <inheritdoc />
-    public partial class cretin : Migration
+    public partial class Cretin : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

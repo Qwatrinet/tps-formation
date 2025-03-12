@@ -1,0 +1,78 @@
+cat nomfichier : Afficher un fichier
+nano nom : éditeur de fichier
+
+
+apt update: met à jour la liste des logiciels disponibles (pas les logiciels eux mêmes)
+apt search ... : recherche un logiciel
+apt install ...
+
+
+service ... status: donne le statut du service installé (actif ou non)
+service ... stop
+service ... start ou reload ou restart
+
+ip address
+loopback, c'est la machine physique en local
+on prend eth0
+
+
+exemple docker dans C:\Users\Qwatrinet\Documents\GitHub\php\DWWM_2312\web-php\exo_impot
+
+on peut compiler avec le nom du container après -t et même en choisissant un tag
+docker build -t debian/apache/php:1.0 . 
+
+Lancer un container qui s'appelle bob sur le port 5432 de l'image debian/apache/php de version truite 2.0
+docker run -d --name bob -p 5432:80 debian/apache/php:truite2.0
+
+
+######Volumes
+docker run -d -v C:\Users\Qwatrinet\Documents\testnul:/app/published/data/ nomdelimage
+
+à gauche de -v chemin local, à droite, celui dans le container
+
+prendre un volume de Docker et le relier 
+docker run -d -v volumedebob:/app/published/ nomdelimage
+
+####SQLServer
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=tru1te!!" -p 1433:1433 -v mssqldata:/var/opt/mssql --name sqlserver --hostname sqlserver -d mcr.microsoft.com/mssql/server:2019-latest
+
+connecter le conteneur à sa création on change le parametre --network
+docker run --name=apipaysprod -p 4500:80 --restart=no  -d apipaysdocker2:1.1 --network testapi
+
+
+
+docker exec -it sqltest "bash"
+lance le conteneur sqltest avec un terminal interactif bash
+
+/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -p 'tru1te!!'
+
+Pour se connecter au client sql
+-C accepte les certificats auto signés
+
+sqlcmd -S 172.20.33.26 -U sa -P 'tru1te!!'
+
+
+#####Reseaux
+
+affiche les réseaux docker
+docker network ls
+docker network inspect nomdureseau
+
+creer un reseau (utilise bridge par defaut)
+docker network create testapi
+docker network create testapi --driver bridge
+
+docker network connect testapi sqlserver
+
+
+#voir ce qui tourne:
+Docker ps
+
+Docker images
+
+si on veut copier des fichiers dans visual studio, aller dans propriétés / copier dans le répertoire/toujours
+
+
+
+
+

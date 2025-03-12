@@ -13,7 +13,7 @@ namespace ApiPays.Migrations
 {
     [DbContext(typeof(ContextePays))]
     [Migration("20240902072701_nulle")]
-    partial class nulle
+    partial class Nulle
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

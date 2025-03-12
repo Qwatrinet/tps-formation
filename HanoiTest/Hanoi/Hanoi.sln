@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35219.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hanoi", "Hanoi.csproj", "{630E161D-5C33-4233-89D8-A66BB98AAE32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElementsHanoi", "..\ElementsHanoi\ElementsHanoi.csproj", "{B74AF8D5-2038-42A8-8C79-FF1529ACEA7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHanoi", "..\TestHanoi\TestHanoi.csproj", "{4C644DDD-E993-4FD5-983E-6DF148AE5B5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{630E161D-5C33-4233-89D8-A66BB98AAE32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{630E161D-5C33-4233-89D8-A66BB98AAE32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{630E161D-5C33-4233-89D8-A66BB98AAE32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{630E161D-5C33-4233-89D8-A66BB98AAE32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B74AF8D5-2038-42A8-8C79-FF1529ACEA7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B74AF8D5-2038-42A8-8C79-FF1529ACEA7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B74AF8D5-2038-42A8-8C79-FF1529ACEA7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B74AF8D5-2038-42A8-8C79-FF1529ACEA7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C644DDD-E993-4FD5-983E-6DF148AE5B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C644DDD-E993-4FD5-983E-6DF148AE5B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C644DDD-E993-4FD5-983E-6DF148AE5B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C644DDD-E993-4FD5-983E-6DF148AE5B5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02331D97-3230-411C-BFBF-75BA8F7C7FC3}
+	EndGlobalSection
+EndGlobal

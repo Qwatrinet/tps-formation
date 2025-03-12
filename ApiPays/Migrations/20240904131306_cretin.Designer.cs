@@ -13,7 +13,7 @@ namespace ApiPays.Migrations
 {
     [DbContext(typeof(ContextePays))]
     [Migration("20240904131306_cretin")]
-    partial class cretin
+    partial class Cretin
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

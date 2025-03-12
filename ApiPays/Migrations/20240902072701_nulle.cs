@@ -5,7 +5,7 @@
 namespace ApiPays.Migrations
 {
     /// <inheritdoc />
-    public partial class nulle : Migration
+    public partial class Nulle : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

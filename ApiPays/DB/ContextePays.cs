@@ -16,7 +16,7 @@ namespace ApiPays.DB
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=db_countries; Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb; Database=db_countries; Trusted_Connection=True;");
         }
     }
 }

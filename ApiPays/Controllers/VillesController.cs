@@ -2,7 +2,6 @@
 using ApiPays.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace ApiPays.Controllers
 {
@@ -41,7 +40,7 @@ namespace ApiPays.Controllers
             return ville;
         }
 
-        // GET: api/Villes/5
+        // GET: api/Villes/Country/5
         [HttpGet("Country/{paysId}")]
         public async Task<ActionResult<IEnumerable<Ville>>> GetVilleOfCountry(int paysId)
         {
@@ -53,7 +52,7 @@ namespace ApiPays.Controllers
             }
 
             {
-                return await _context.Villes.Where(v => v.PaysId==paysId)
+                return await _context.Villes.Where(v => v.PaysId == paysId)
                     .ToListAsync();
             }
         }

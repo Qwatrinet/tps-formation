@@ -1,3 +1,6 @@
+prévoir une longueur de 100 pour les mots de passe chiffrés
+
+
 ALTER TABLE emp
 ADD CONSTRAINT FK_emp_dept
 FOREIGN KEY (deptno) REFERENCES dept(deptno);

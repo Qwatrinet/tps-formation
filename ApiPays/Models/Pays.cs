@@ -18,18 +18,19 @@ namespace ApiPays.Models
     {
         public int PaysId { get; set; }
 
-        [Column("code_pays")]
-        [Length(2, 2, ErrorMessage = "Le code doit contenir 2 lettres")]
+        [Column("code_pays", TypeName = "char")]
+        [StringLength(2)]
+        //[Length(2, 2, ErrorMessage = "Le code doit être composé de strictement 2 lettres")]
         [Required]
         public string CodePays { get; set; }
 
         [Column("nom_pays")]
-        [MaxLength(60)]
+        [MaxLength(255)]
         [Required]
         public string NomPays { get; set; }
 
         [JsonIgnore]
-        public ICollection<Ville>Villes { get; init; } 
+        public ICollection<Ville> Villes { get; init; }
 
         public Pays()
         {
