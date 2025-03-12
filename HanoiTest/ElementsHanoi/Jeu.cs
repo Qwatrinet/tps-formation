@@ -58,6 +58,10 @@ namespace ElementsHanoi
             {
                 throw new ArgumentException("Il faut déplacer un nombre positif de blocs");
             }
+            if (nombreBlocDeLaTour > depart.Blocs.Count)
+            {
+                throw new ArgumentException("Impossible de déplacer plus de blocs que n'en contient la tour!");
+            }
             if (nombreBlocDeLaTour == 1)
             {
                 depart.DeplacerBloc(destination);

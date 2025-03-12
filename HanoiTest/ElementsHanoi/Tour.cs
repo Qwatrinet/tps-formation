@@ -19,6 +19,16 @@
         /// <param name="blocs">La liste des blocs contenus dans la tour</param>
         public Tour(List<Bloc> blocs)
         {
+            foreach (Bloc bloc in blocs)
+            {
+                foreach (Bloc b in blocs)
+                {
+                    if (b != bloc && b.Largeur <= bloc.Largeur)
+                    {
+                        throw new ArgumentException("La tour est invalide!");
+                    }
+                }
+            }
             this.blocs = blocs;
         }
 
