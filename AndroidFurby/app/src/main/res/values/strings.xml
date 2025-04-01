@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FurbyMoches</string>
+    <string name="title_activity_ajout_furby">activity_ajout_furby</string>
+    <string name="title_activity_ajouter_personne">ajouterPersonne</string>
+</resources>

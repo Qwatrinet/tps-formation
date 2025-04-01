@@ -11,7 +11,6 @@ namespace TestHanoi
         public void Tour_DeplacerBloc_DeplacerBlocInexistant_Echec()
         {
             Tour tourDepart = new Tour(new List<Bloc>());
-
             List<Bloc> blocs2 = new List<Bloc>();
             blocs2.Add(new Bloc(1));
             Tour tourarrivee = new Tour(blocs2);
