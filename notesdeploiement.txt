@@ -25,6 +25,9 @@ Lancer un container qui s'appelle bob sur le port 5432 de l'image debian/apache/
 docker run -d --name bob -p 5432:80 debian/apache/php:truite2.0
 
 
+docker compose up -d 
+lance les conteneurs liés avec les paramètres spécifiés dans le docker compose
+
 ######Volumes
 docker run -d -v C:\Users\Qwatrinet\Documents\testnul:/app/published/data/ nomdelimage
 
